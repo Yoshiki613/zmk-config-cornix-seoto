@@ -1,0 +1,158 @@
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/keys.h>
+
+#define SYMBOL1 1
+#define SEOTO_EN 2
+#define SYMBOL2 3
+#define NUMBER 4
+#define FUNCTION 5
+#define WIRELESS 6
+
+&mt {
+    flavor = "tap-preferred";
+    tapping-term-ms = <225>;
+    quick-tap-ms = <200>;
+    require-prior-idle-ms = <150>;
+};
+
+&lt {
+    flavor = "balanced";
+    tapping-term-ms = <175>;
+    quick-tap-ms = <200>;
+};
+
+/ {
+    macros {
+        seoto_nn: seoto_nn {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_tap>, <&kp N &kp N>;
+        };
+
+        seoto_xtu: seoto_xtu {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_tap>, <&kp X &kp T &kp U>;
+        };
+
+        seoto_k: seoto_k {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_tap>, <&kp K>;
+        };
+
+        seoto_ya: seoto_ya {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_tap>, <&kp Y &kp A>;
+        };
+
+        seoto_yu: seoto_yu {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_tap>, <&kp Y &kp U>;
+        };
+
+        seoto_yo: seoto_yo {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_tap>, <&kp Y &kp O>;
+        };
+
+        seoto_lang1: seoto_lang1 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_tap>, <&kp LANGUAGE_1 &kp INTERNATIONAL_4 &to 0>;
+        };
+
+        seoto_lang2: seoto_lang2 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_tap>, <&kp LANGUAGE_2 &kp INTERNATIONAL_5 &to SEOTO_EN>;
+        };
+    };
+
+    combos {
+        compatible = "zmk,combos";
+
+        space {
+            bindings = <&kp SPACE>;
+            key-positions = <29 28>;
+        };
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        seoto_layer {
+            display-name = "Seoto";
+            bindings = <
+&none  &kp F       &kp Z           &kp H           &kp P             &kp LEFT_ARROW                         &kp RIGHT_ARROW  &seoto_yo          &kp O            &kp W            &seoto_ya        &none
+&none  &kp D       &mt LEFT_WIN S  &mt LEFT_ALT N  &mt LEFT_SHIFT T  &kp G                                  &kp L            &mt RIGHT_SHIFT A  &mt RIGHT_ALT I  &mt RIGHT_WIN U  &kp E           &none
+&none  &kp B       &kp R           &kp M           &seoto_k          &kp K             &none  &none             &kp Y            &kp COMMA          &seoto_yu        &kp DOT          &kp V           &none
+&none  &none       &none           &mo FUNCTION     &lt SYMBOL1 SPACE  &seoto_lang2                            &lt NUMBER ENTER  &lt SYMBOL1 SPACE   &mo WIRELESS      &none            &none            &none
+            >;
+        };
+
+        symbol1 {
+            display-name = "Symbols";
+            bindings = <
+&none  &kp AT_SIGN           &kp LEFT_BRACKET      &kp DOUBLE_QUOTES  &kp RIGHT_BRACKET      &trans                           &kp PLUS  &kp LESS_THAN    &kp EQUAL     &kp GREATER_THAN  &kp SLASH      &none
+&none  &kp HASH              &kp LEFT_PARENTHESIS  &kp SQT            &kp RIGHT_PARENTHESIS  &kp AMPERSAND                    &kp APOS  &kp BACKSPACE    &seoto_nn     &kp MINUS         &seoto_xtu     &none
+&none  &kp NON_US_BACKSLASH  &kp LEFT_BRACE        &kp UNDERSCORE     &kp RIGHT_BRACE        &kp PIPE       &none  &none       &trans    &kp EXCLAMATION  &kp QUESTION  &kp COLON         &kp SEMI      &none
+&none  &none                 &none                 &trans             &trans                 &trans                            &trans    &trans           &trans        &none             &none          &none
+            >;
+        };
+
+        seoto_en_layer {
+            display-name = "Seoto EN";
+            bindings = <
+&none  &kp F       &kp Z           &kp H           &kp P             &kp LEFT_ARROW                         &kp RIGHT_ARROW  &kp Q              &kp O            &kp W            &kp X           &none
+&none  &kp D       &mt LEFT_WIN S  &mt LEFT_ALT N  &mt LEFT_SHIFT T  &kp G                                  &kp L            &mt RIGHT_SHIFT A  &mt RIGHT_ALT I  &mt RIGHT_WIN U  &kp E           &none
+&none  &kp B       &kp R           &kp M           &kp C             &kp K             &none  &none             &kp Y            &kp COMMA          &kp J           &kp DOT          &kp V           &none
+&none  &none       &none           &mo FUNCTION     &lt SYMBOL2 SPACE  &seoto_lang1                            &lt NUMBER ENTER  &lt SYMBOL2 SPACE   &mo WIRELESS      &none            &none            &none
+            >;
+        };
+
+        symbol2 {
+            display-name = "Symbols EN";
+            bindings = <
+&none  &kp AT_SIGN           &kp LEFT_BRACKET      &kp DOUBLE_QUOTES  &kp RIGHT_BRACKET      &trans                           &kp PLUS  &kp LESS_THAN    &kp EQUAL     &kp GREATER_THAN  &kp SLASH      &none
+&none  &kp HASH              &kp LEFT_PARENTHESIS  &kp SQT            &kp RIGHT_PARENTHESIS  &kp AMPERSAND                    &kp APOS  &kp BACKSPACE    &seoto_nn     &kp MINUS         &seoto_xtu     &none
+&none  &kp NON_US_BACKSLASH  &kp LEFT_BRACE        &kp UNDERSCORE     &kp RIGHT_BRACE        &kp PIPE       &none  &none       &trans    &kp EXCLAMATION  &kp QUESTION  &kp COLON         &kp SEMI      &none
+&none  &none                 &none                 &trans             &trans                 &trans                            &trans    &trans           &trans        &none             &none          &none
+            >;
+        };
+
+        number {
+            display-name = "Number";
+            bindings = <
+&none  &trans  &kp N1  &kp N2  &kp N3  &trans                    &kp F12  &trans          &kp UP_ARROW    &trans           &trans  &none
+&none  &kp N0  &kp N4  &kp N5  &kp N6  &trans                    &kp F11  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW  &trans  &none
+&none  &trans  &kp N7  &kp N8  &kp N9  &trans  &none  &none     &trans   &trans          &trans          &trans           &trans  &none
+&none  &none   &none   &trans  &trans  &trans                     &trans   &trans          &trans          &none            &none   &none
+            >;
+        };
+
+        function_layer {
+            display-name = "Function";
+            bindings = <
+&none  &kp LG(Q)  &kp LG(W)  &kp LG(E)  &kp LG(A)  &kp LG(S)                    &kp F1  &kp F2  &kp F3  &kp F4  &kp F5   &none
+&none  &trans     &trans     &trans     &trans     &trans                       &kp F6  &kp F7  &kp F8  &kp F9  &kp F10  &none
+&none  &kp LG(Z)  &kp LG(X)  &kp LG(C)  &kp LG(V)  &trans  &none  &none        &trans  &trans  &trans  &trans  &trans   &none
+&none  &none      &none      &trans     &trans     &trans                       &trans  &trans  &trans  &none   &none    &none
+            >;
+        };
+
+        wireless {
+            display-name = "Wireless";
+            bindings = <
+&none  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                         &bt BT_SEL 0    &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4    &none
+&none  &trans        &trans        &trans        &trans        &trans                               &trans          &trans        &trans        &trans        &trans          &none
+&none  &trans        &trans        &trans        &trans        &trans  &none  &none                 &trans          &trans        &trans        &trans        &bt BT_CLR     &none
+&none  &none         &none         &trans        &trans        &trans                               &bootloader     &studio_unlock  &bt BT_CLR_ALL &none         &none           &none
+            >;
+        };
+    };
+};
